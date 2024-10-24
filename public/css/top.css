@@ -1,0 +1,114 @@
+/* 全体のスタイル */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* ヘッダーのスタイル */
+header {
+    background-color: #ff6666;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 検索バーを横並びに調整 */
+header .search-bar {
+    display: flex;
+    align-items: center;
+}
+
+header .search-bar input[type="text"] {
+    padding: 8px;
+    width: 300px;
+    border: 2px solid #ff4d4d;
+    border-radius: 6px;
+    outline: none;
+}
+
+header .search-bar button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+header .search-bar button:hover {
+    background-color: #e60000;
+}
+
+/* ユーザー情報とカートを右寄せ */
+header .user-cart {
+    display: flex;
+    gap: 20px;
+}
+
+header .user-cart button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+header .user-cart button:hover {
+    background-color: #e60000;
+}
+
+/* メインのスタイル */
+main {
+    padding: 30px;
+}
+
+main h1 {
+    text-align: center;
+    color: #ff4d4d;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* 商品アイテムのスタイル */
+.product-item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: calc(25%);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.product-item h2 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.product-item p {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.product-item button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.product-item button:hover {
+    background-color: #e60000;
+}

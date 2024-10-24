@@ -1,0 +1,76 @@
+/* 管理者TOP用のスタイル */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8; /* 背景色 */
+    color: #333;
+    text-align: center;
+    padding: 50px;
+    margin: 0;
+    line-height: 1.6;
+}
+
+h1 {
+    color: #003366; /* ネイビー */
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
+
+/* ボタンのスタイル */
+button {
+    background-color: #003366; /* ネイビー */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 20px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #002244; /* 濃いネイビー */
+}
+
+/* フォームのレイアウト */
+form {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+/* リンクボタンのスタイル */
+a.btn {
+    display: inline-block;
+    background-color: #003366;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    margin-top: 30px;
+    transition: background-color 0.3s ease;
+}
+
+a.btn:hover {
+    background-color: #002244;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    button, a.btn {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    form {
+        display: block;
+    }
+}

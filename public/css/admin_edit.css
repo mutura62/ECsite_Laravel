@@ -1,0 +1,73 @@
+/* 全体のスタイル */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fa; /* 淡い背景色 */
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+/* 見出し */
+h1 {
+    color: #003366; /* ネイビー */
+    text-align: center;
+}
+
+/* テーブルのスタイル */
+table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th {
+    background-color: #003366; /* ネイビー */
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+}
+
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* ボタンのスタイル */
+button {
+    background-color: #003366; /* ネイビー */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: #002244; /* 濃いネイビー */
+}
+
+a.btn {
+    display: inline-block;
+    background-color: #003366;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+a.btn:hover {
+    background-color: #002244;
+}
