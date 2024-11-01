@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\OrderConfirmationMail;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Order;
@@ -12,13 +13,11 @@ use App\Models\Product;
 use Stripe\Stripe;
 use Stripe\Charge;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
-    /**
-     * 決済フォーム表示
-     */
+
     public function getCartItems()
     {
         // ログインしているユーザーを取得
@@ -45,30 +44,22 @@ class PaymentController extends Controller
     {
         DB::beginTransaction(); // トランザクション開始
 
-        // ログインしているユーザーを取得
         $user = Auth::user();
-
-        // ユーザーのカートを取得
         $cart = Cart::where('user_id', $user->id)->first();
 
         if (!$cart) {
             return redirect()->back()->withErrors('カートが空です');
         }
 
-        // カート内の商品
         $cartItems = CartItem::where('cart_id', $cart->id)->get();
-
-        // 合計金額
         $totalAmount = $cartItems->sum(function ($cartItem) {
             return $cartItem->product->price * $cartItem->quantity;
         });
-
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe::setApiKey('sk_test_51QBAdODmTmzR9ID4FCX0hiCVCoCo0HPsneD8imkX1ilD0mVTGNNw9jnkScofDYqpj1JKSnyjljuZeTjLMh4sEixc00ayccG1hA');
 
         try {
-            // 決済を実行
             $charge = Charge::create([
-                'amount' => $totalAmount,
+                'amount' => $totalAmount * 100, // 円を基準にする場合、Stripeは最小単位で金額を設定
                 'currency' => 'jpy',
                 'source' => $request->stripeToken,
                 'description' => '商品の購入',
@@ -80,7 +71,6 @@ class PaymentController extends Controller
             $newOrder->total_amount = $totalAmount;
             $newOrder->save();
 
-            // OrderItemsテーブルにカート内の商品をすべて追加
             foreach ($cartItems as $cartItem) {
                 $newOrderItem = new OrderItem();
                 $newOrderItem->order_id = $newOrder->id;
@@ -94,9 +84,7 @@ class PaymentController extends Controller
             foreach ($cartItems as $cartItem) {
                 $product = $cartItem->product;
 
-                // 在庫が足りるか確認
                 if ($product->stock >= $cartItem->quantity) {
-                    // 在庫を減らす
                     $product->stock -= $cartItem->quantity;
                     $product->save();
                 } else {
@@ -108,11 +96,14 @@ class PaymentController extends Controller
             CartItem::where('cart_id', $cart->id)->delete();
             $cart->delete();
 
+            // メール送信
+            $newOrder->load('user', 'orderItems.product');
+            Mail::to($user->email)->send(new OrderConfirmationMail($newOrder));
+
             DB::commit(); // トランザクションをコミット
             return redirect()->route('cart')->with('success', '決済が完了しました！');
         } catch (\Exception $e) {
             DB::rollBack(); // 例外が発生したらロールバック
-
             return redirect()->route('cart')->with('error', '決済エラーが発生しました: ' . $e->getMessage());
         }
     }

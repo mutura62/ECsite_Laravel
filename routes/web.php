@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PaymentController;
 
 
@@ -24,6 +25,8 @@ Route::post('/admin/users/update', [UserController::class, 'update'])->middlewar
 //ユーザーページ
 Route::get('/top', [ProductController::class, 'userTop'])->middleware('auth');
 Route::post('/cart/add/{productId}', [CartController::class, 'addToCart'])->middleware('auth');
+Route::get('/profile', [ProfileController::class, 'showOrderHistory'])->name('profile')->middleware('auth');
+
 //カートページ
 Route::get('/cart', [CartController::class, 'getCartItems'])->middleware('auth');
 Route::get('/cart', [CartController::class, 'getCartItems'])->name('cart')->middleware('auth');
