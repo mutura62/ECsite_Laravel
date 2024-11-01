@@ -4,20 +4,11 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MonthlyMail;
 
 class Kernel extends ConsoleKernel
 {
-    /**
-     * Define the application's command schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
-     */
-    protected function schedule(Schedule $schedule)
-    {
-        // $schedule->command('inspire')->hourly();
-    }
-
     /**
      * Register the commands for the application.
      *
@@ -25,8 +16,15 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
+    }
+
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->call(function () {
+            Mail::to('megane621234@gmail.com')->send(new \App\Mail\MonthlyMail());
+        })->monthlyOn(31, '11:22');
     }
 }

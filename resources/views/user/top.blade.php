@@ -21,7 +21,7 @@
         <!-- ユーザー情報とカート -->
         <div class="user-cart">
             <div>
-                <button onclick="location.href='{{ url('/user/profile') }}'">{{ Auth::user()->name }}</button>
+                <button onclick="location.href='{{ url('/profile') }}'">{{ Auth::user()->name }}</button>
             </div>
             <div>
                 <button onclick="location.href='{{ url('/cart') }}'">カートを見る</button>
